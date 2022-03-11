@@ -47,11 +47,7 @@ class CommonDataExtractor:
     def process_data(self):
         for table_row in self.table.find("tbody").find_all("tr"):
             row_data = [column.text for column in table_row.find_all("td")]
-            self.data.append(
-                self.model_class(
-                    **self.get_data(row_data)
-                )
-            )
+            self.data.append(row_data)
         return self.data
 
     def set_headers(self):
