@@ -1,6 +1,6 @@
 # NDA Website Crawler
 
-The is crawler helps extract information from the [official website of the National Drug Authority](https://www.nda.or.ug/) in Uganda. 
+This crawler helps extract information from the [official website of the National Drug Authority](https://www.nda.or.ug/) in Uganda. 
 
 
 Example datasets include :-
