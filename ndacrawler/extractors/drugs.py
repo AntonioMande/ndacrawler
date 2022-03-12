@@ -1,3 +1,5 @@
+import csv
+
 from _internal_utils import get_page_content
 from bs4 import BeautifulSoup
 
@@ -53,6 +55,12 @@ class CommonDataExtractor:
             row_data = [column.text for column in table_row.find_all("td")]
             self.data.append(row_data)
         return self.data
+
+    def to_csv(self, file_path):
+        with open(file_path, 'w') as f:
+            writer = csv.writer(f)
+            writer.writerow(self.headers)
+            writer.writerows(self.data)
 
 
 class HerbalHumanDataExtractor(CommonDataExtractor):

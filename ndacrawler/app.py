@@ -6,4 +6,4 @@ requests_cache.install_cache('ndacrawler.sqlite3')
 
 
 if __name__ == "__main__":
-    print(get_drugs()["Herbal Human"].data)
+    print(get_drugs()["Herbal Human"].to_csv_file("herbal_human.csv"))
