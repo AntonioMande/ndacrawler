@@ -3,7 +3,9 @@
 This crawler helps extract information from the [National Drug Authority(NDA) website](https://www.nda.or.ug/) in Uganda. 
 
 ## Installation
-`pip install ndacrawler`
+```console
+pip install ndacrawler
+```
 
 ## Examples 
 ### Get list of  [licensed drugs](https://www.nda.or.ug/drug-register/)
