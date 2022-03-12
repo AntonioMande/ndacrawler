@@ -1,6 +1,6 @@
 import csv
 
-from _internal_utils import get_page_content
+from .._internal_utils import get_page_content
 from bs4 import BeautifulSoup
 
 
@@ -57,7 +57,7 @@ class CommonDataExtractor:
         return self.data
 
     def to_csv(self, file_path):
-        with open(file_path, 'w') as f:
+        with open(file_path, 'w', encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerow(self.headers)
             writer.writerows(self.data)

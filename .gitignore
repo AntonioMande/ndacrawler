@@ -20,3 +20,4 @@ var/
 
 /venv
 *.sqlite3
+*.csv
