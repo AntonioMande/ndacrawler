@@ -1,20 +1,24 @@
+from _internal_utils import get_page_content
+from bs4 import BeautifulSoup
+
 
 class CommonDataExtractor:
-    name_header = "NAME OF DRUG"
-    registration_number_header = "NDA REGISTRATION NUMBER"
-    license_holder_header = "LICENSE HOLDER"
-    manufacturer_header = "MANUFACTURER"
-    country_of_manufacture_header = "COUNTRY OF MANUFACTURE"
-    local_technical_representative_header = "LOCAL TECHNICAL REPRESENTATIVE"
-    dosage_form_header = "DOSAGE FORM"
-    pack_size_header = "PACK SIZE"
+    headers = [
+        "NAME OF DRUG",
+        "NDA REGISTRATION NUMBER",
+        "LICENSE HOLDER",
+        "MANUFACTURER",
+        "COUNTRY OF MANUFACTURE",
+        "LOCAL TECHNICAL REPRESENTATIVE",
+        "DOSAGE FORM",
+        "PACK SIZE"
+    ]
 
     def __init__(self, table):
         self.data = []
         self.table = table
         self.headers_index = self.get_table_headers_indexes()
 
-        self.set_headers()
         self.process_data()
 
     def get_unique_data(self):
@@ -50,36 +54,42 @@ class CommonDataExtractor:
             self.data.append(row_data)
         return self.data
 
-    def set_headers(self):
-        self.headers = [
-            attribute for attribute in dir(self) if attribute.endswith("_header")
-        ]
-
 
 class HerbalHumanDataExtractor(CommonDataExtractor):
-    sn_header = "S/N"
-    registration_date_header = "REGISTRATION DATE"
+    headers = CommonDataExtractor.headers + ["S/N", "REGISTRATION DATE"]
 
 
 class HerbalVetDataExtractor(CommonDataExtractor):
-    registration_date_header = "REGISTRATION DATE"
+    headers = CommonDataExtractor.headers + ["REGISTRATION DATE"]
 
 
 class HumanDataExtractor(CommonDataExtractor):
-    sn_header = "S/N"
-    generic_name_header = "GENERIC NAME OF DRUG"
-    strength_header = "STRENGTH OF DRUG"
-    registration_date_header = "REGISTRATION DATE"
+    headers = CommonDataExtractor.headers + \
+        ["S/N", "GENERIC NAME OF DRUG", "STRENGTH OF DRUG", "REGISTRATION DATE"]
 
 
 class VetDataExtractor(CommonDataExtractor):
-    sn_header = "S/N"
-    generic_name_header = "GENERIC NAME OF DRUG"
-    strength_header = "STRENGTH OF DRUG"
-    registration_date_header = "REGISTRATION DATE"
+    headers = CommonDataExtractor.headers + \
+        ["S/N", "GENERIC NAME OF DRUG", "STRENGTH OF DRUG", "REGISTRATION DATE"]
 
 
 class LocalTraditionalHumanHerbalDataExtractor(CommonDataExtractor):
-    sn_header = "S/N"
-    license_holder_header = "LICENCE HOLDER"
-    registration_number_header = "REGISTRATION NUMBER"
+    headers = CommonDataExtractor.headers + \
+        ["S/N", "LICENCE HOLDER", "REGISTRATION NUMBER"]
+
+
+def get_drugs():
+    url = "https://www.nda.or.ug/drug-register"
+    page_content = get_page_content(url)
+    soup = BeautifulSoup(page_content, "html.parser")
+    herbal_human_table, herbal_vet_table, human_table, vet_table, local_traditional_human_herbal_table = soup.find_all(
+        "table", {"class": "tablepress"}
+    )
+
+    return {
+        "Herbal Human": HerbalHumanDataExtractor(herbal_human_table),
+        "Herbal Vet": HerbalVetDataExtractor(herbal_vet_table),
+        "Human": HumanDataExtractor(human_table),
+        "Vet": VetDataExtractor(vet_table),
+        "Local Traditional Human Herbal": LocalTraditionalHumanHerbalDataExtractor(local_traditional_human_herbal_table)
+    }
