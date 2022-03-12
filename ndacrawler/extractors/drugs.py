@@ -85,6 +85,7 @@ def get_drugs():
     herbal_human_table, herbal_vet_table, human_table, vet_table, local_traditional_human_herbal_table = soup.find_all(
         "table", {"class": "tablepress"}
     )
+    # TODO Lazy load the extraction of the data for when requested
 
     return {
         "Herbal Human": HerbalHumanDataExtractor(herbal_human_table),

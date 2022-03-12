@@ -1,4 +1,6 @@
+
 from extractors.drugs import get_drugs
+
 import requests_cache
 requests_cache.install_cache('ndacrawler.sqlite3')
 
