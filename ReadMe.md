@@ -4,7 +4,7 @@ This crawler helps extract information from the [official website of the Nationa
 
 
 ## Examples 
-### [Licensed Drugs](https://www.nda.or.ug/drug-register/)
+### Get list of  [licensed drugs](https://www.nda.or.ug/drug-register/)
     
 ```python
 from ndacrawler import get_drugs
