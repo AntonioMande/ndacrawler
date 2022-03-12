@@ -4,7 +4,7 @@ This crawler helps extract information from the [National Drug Authority(NDA) we
 
 ## Installation
 ```console
-pip install ndacrawler
+python -m pip install ndacrawler
 ```
 
 ## Examples 
