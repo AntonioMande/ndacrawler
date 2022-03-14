@@ -8,7 +8,6 @@ class CommonDataExtractor:
     headers = [
         "NAME OF DRUG",
         "NDA REGISTRATION NUMBER",
-        "LICENSE HOLDER",
         "MANUFACTURER",
         "COUNTRY OF MANUFACTURE",
         "LOCAL TECHNICAL REPRESENTATIVE",
@@ -22,9 +21,6 @@ class CommonDataExtractor:
         self.headers_index = self.get_table_headers_indexes()
 
         self.process_data()
-
-    def get_unique_data(self):
-        raise NotImplementedError
 
     def get_table_headers_indexes(self):
         return {
@@ -51,9 +47,15 @@ class CommonDataExtractor:
         }
 
     def process_data(self):
+        # TODO Arrange the data according to the order of the headers
         for table_row in self.table.find("tbody").find_all("tr"):
             row_data = [column.text for column in table_row.find_all("td")]
-            self.data.append(row_data)
+            self.data.append(
+                [
+                    row_data[self.headers_index[header]]
+                    for header in self.headers
+                ]
+            )
         return self.data
 
     def to_csv(self, file_path):
@@ -64,26 +66,30 @@ class CommonDataExtractor:
 
 
 class HerbalHumanDataExtractor(CommonDataExtractor):
-    headers = CommonDataExtractor.headers + ["S/N", "REGISTRATION DATE"]
+    headers = CommonDataExtractor.headers + \
+        ["S/N", "LICENSE HOLDER", "REGISTRATION DATE"]
 
 
 class HerbalVetDataExtractor(CommonDataExtractor):
-    headers = CommonDataExtractor.headers + ["REGISTRATION DATE"]
+    headers = CommonDataExtractor.headers + \
+        ["LICENSE HOLDER", "REGISTRATION DATE"]
 
 
 class HumanDataExtractor(CommonDataExtractor):
     headers = CommonDataExtractor.headers + \
-        ["S/N", "GENERIC NAME OF DRUG", "STRENGTH OF DRUG", "REGISTRATION DATE"]
+        ["S/N", "LICENSE HOLDER", "GENERIC NAME OF DRUG",
+            "STRENGTH OF DRUG", "REGISTRATION DATE"]
 
 
 class VetDataExtractor(CommonDataExtractor):
     headers = CommonDataExtractor.headers + \
-        ["S/N", "GENERIC NAME OF DRUG", "STRENGTH OF DRUG", "REGISTRATION DATE"]
+        ["S/N", "LICENSE HOLDER", "GENERIC NAME OF DRUG",
+            "STRENGTH OF DRUG", "REGISTRATION DATE"]
 
 
 class LocalTraditionalHumanHerbalDataExtractor(CommonDataExtractor):
     headers = CommonDataExtractor.headers + \
-        ["S/N", "LICENCE HOLDER", "REGISTRATION NUMBER"]
+        ["S/N", "LICENCE HOLDER"]
 
 
 def get_drugs():
