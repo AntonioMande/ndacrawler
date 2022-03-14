@@ -21,12 +21,14 @@ human_drugs = drugs["Human"]
 vet_drugs = drugs["Vet"]
 local_traditional_human_herbal_drugs = drugs["Local Traditional Human Herbal"]
 
-# Display the headers of the data
-print(herbal_human_drugs.headers)
-
-# Display the data
-print(herbal_human_drugs.data)
-
 # Save to a csv file
 herbal_human_drugs.to_csv("Herbal Human.csv")
+
+# Display the headers of the data
+# print(herbal_human_drugs.headers)
+
+# Display the data
+# print(herbal_human_drugs.data)
+
+
 ```
