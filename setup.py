@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="ndacrawler",
-    version="0.0.12",
+    version="0.1.0",
     author="Antonio Mande",
     author_email="mandetonny@gmail.com",
     description="A simple crawler for the NDA website",
