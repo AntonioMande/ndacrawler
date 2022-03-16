@@ -83,19 +83,6 @@ class TableExtractor:
         return DataExtractor(table)
 
 
-# def drugs_extractor(soup):
-#     herbal_human_table, herbal_vet_table, human_table, vet_table, local_traditional_human_herbal_table = soup.find_all(
-#         "table", {"class": "tablepress"}
-#     )
-
-#     return {
-#         "Herbal Human": DataExtractor(herbal_human_table),
-#         "Herbal Vet": DataExtractor(herbal_vet_table),
-#         "Human": DataExtractor(human_table),
-#         "Vet": DataExtractor(vet_table),
-#         "Local Traditional Human Herbal": DataExtractor(local_traditional_human_herbal_table)
-#     }
-
 def drugs_extractor(soup):
     return TableExtractor(soup)
 

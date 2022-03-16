@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="ndacrawler",
-    version="0.0.11",
+    version="0.0.12",
     author="Antonio Mande",
     author_email="mandetonny@gmail.com",
     description="A simple crawler for the NDA website",
@@ -20,5 +20,5 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src", exclude=['tests*']),
     python_requires=">=3.6",
-    install_requires=["requests", "beautifulsoup4==4.10", "lxml"]
+    install_requires=["requests", "beautifulsoup4==4.10", "lxml", "cchardet"]
 )
