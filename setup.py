@@ -18,7 +18,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     package_dir={"": "src"},
-    packages=setuptools.find_packages(where="src"),
+    packages=setuptools.find_packages(where="src", exclude=['tests*']),
     python_requires=">=3.6",
-    install_requires=["requests", "beautifulsoup4==4.10"]
+    install_requires=["requests", "beautifulsoup4==4.10", "lxml"]
 )

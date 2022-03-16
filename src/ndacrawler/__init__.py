@@ -1,1 +1,1 @@
-from .extractors.drugs import get_drugs
+from .drugs import get_drugs
